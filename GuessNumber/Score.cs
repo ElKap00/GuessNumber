@@ -11,9 +11,15 @@ namespace GuessNumber
         public string Name { get; set; }
         public int Guess { get; set; }
 
+        public Score(string name, int guess)
+        {
+            Name = name;
+            Guess = guess;
+        }
+
         public int CompareTo(Score score)
         {
-            return 0;
+            return score.Guess.CompareTo(this.Guess);
         }
     }
 }
