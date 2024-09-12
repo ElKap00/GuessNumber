@@ -13,7 +13,13 @@ namespace GuessNumber
 
         public UI() { scoreList = new HandleHighScore(); }
 
-        public string DrawUI() 
+        /* 
+         * This method will draw the main menu of the game.
+         * It will display the highscores if there are any.
+         * 
+         * @return The player's response to whether they want to play the game or not.
+         */
+        public string DrawUI()
         {
             string mainMenu = "Hello Player!\n\n";
 
@@ -21,20 +27,22 @@ namespace GuessNumber
 
             if (scores.Any())
             {
-                scores.Sort();
-
                 mainMenu += "---- HIGHSCORES ----\n";
+                mainMenu += "| Name          | Guess |\n";
+                mainMenu += "|---------------|-------|\n";
                 foreach (Score score in scores)
-                    mainMenu += score.Name + ":" + score.Guess + "\n";
+                    mainMenu += $"| {score.Name,-15} | {score.Guess,5} |\n";
             }
             else
             {
                 mainMenu += "There seems to be no highscores yet. You can be the first!\n";
             }
 
-            mainMenu += "\nPlease enter your name: ";
+            mainMenu += "\nDo you want to play? (y/n)\n";
 
-            return mainMenu;
+            Console.Write(mainMenu);
+
+            return Console.ReadLine();
         }
     }
 }

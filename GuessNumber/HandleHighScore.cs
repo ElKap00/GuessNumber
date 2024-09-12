@@ -21,6 +21,12 @@ namespace GuessNumber
             highScoreFilePath = Path.Combine(projectRootDirectory, HIGH_SCORE_DIRECTORY, HIGH_SCORE_FILE);
         }
 
+        /* 
+         * This method will save the high scores to a file.
+         * 
+         * @param highScoreList - The list of high scores to save.
+         * @return True if the high scores were saved successfully, false otherwise.
+         */
         public bool SaveHighScore(List<Score> highScoreList)
         {
             try
@@ -52,6 +58,11 @@ namespace GuessNumber
             }
         }
 
+        /* 
+         * This method will fetch the high scores from a file.
+         * 
+         * @return The list of high scores.
+         */
         public List<Score> FetchHighScore()
         {
             try
@@ -73,6 +84,7 @@ namespace GuessNumber
                         }
                     }
                 }
+                highScoreList.Sort();
                 return highScoreList;
             }
             catch (Exception ex)

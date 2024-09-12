@@ -3,7 +3,5 @@
 UI ui = new UI();
 GuessNumberGame game = new GuessNumberGame();
 
-Console.Write(ui.DrawUI());
-string playerName = Console.ReadLine();
-
-game.PlayGame(playerName);
+string playerResponse = ui.DrawUI();
+game.PlayGame(playerResponse);
