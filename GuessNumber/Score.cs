@@ -17,6 +17,7 @@ namespace GuessNumber
             Guess = guess;
         }
 
+        // Compare the scores based on the number of guesses
         public int CompareTo(Score other)
         {
             return this.Guess.CompareTo(other.Guess);

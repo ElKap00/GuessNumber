@@ -32,6 +32,7 @@ namespace GuessNumber
         {
             WillPlay(playerResponse);
 
+            // Initialize the game variables
             int numberToGuess = random.Next(1, 11);
             int userGuess = 0;
             List<Score> scores = new List<Score>();
@@ -41,6 +42,7 @@ namespace GuessNumber
                 Console.WriteLine("Awesome! Guess a number between 1-10.");
             }
 
+            // Core game loop
             while (runGame)
             {
                 userGuess = int.Parse(Console.ReadLine());

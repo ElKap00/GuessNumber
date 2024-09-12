@@ -31,13 +31,14 @@ namespace GuessNumber
         {
             try
             {
+                // Create the directory if it doesn't exist
                 string directoryPath = Path.GetDirectoryName(highScoreFilePath);
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
                 }
 
-
+                // Save the high scores to the file
                 using (fStream = new FileStream(highScoreFilePath, FileMode.Append, FileAccess.Write))
                 {
                     using (sWriter = new StreamWriter(fStream))
@@ -84,6 +85,7 @@ namespace GuessNumber
                         }
                     }
                 }
+                // Return the high scores sorted by the number of guesses
                 highScoreList.Sort();
                 return highScoreList;
             }
