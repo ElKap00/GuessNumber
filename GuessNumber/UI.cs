@@ -21,6 +21,8 @@ namespace GuessNumber
 
             if (scores.Any())
             {
+                scores.Sort();
+
                 mainMenu += "---- HIGHSCORES ----\n";
                 foreach (Score score in scores)
                     mainMenu += score.Name + ":" + score.Guess + "\n";
@@ -29,6 +31,8 @@ namespace GuessNumber
             {
                 mainMenu += "There seems to be no highscores yet. You can be the first!\n";
             }
+
+            mainMenu += "\nPlease enter your name: ";
 
             return mainMenu;
         }

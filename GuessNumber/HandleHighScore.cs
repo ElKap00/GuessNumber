@@ -8,25 +8,42 @@ namespace GuessNumber
 {
     public class HandleHighScore
     {
+        private const string HIGH_SCORE_DIRECTORY = "HighScores";
         private const string HIGH_SCORE_FILE = "high_scores.txt";
+        private string highScoreFilePath;
         private FileStream fStream;
         private StreamWriter sWriter;
         private StreamReader sReader;
 
-        public HandleHighScore(){}
+        public HandleHighScore() 
+        {
+            string projectRootDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+            highScoreFilePath = Path.Combine(projectRootDirectory, HIGH_SCORE_DIRECTORY, HIGH_SCORE_FILE);
+        }
 
         public bool SaveHighScore(List<Score> highScoreList)
         {
             try
             {
-                using (sWriter = new StreamWriter(HIGH_SCORE_FILE))
+                string directoryPath = Path.GetDirectoryName(highScoreFilePath);
+                if (!Directory.Exists(directoryPath))
                 {
-                    foreach (Score score in highScoreList)
-                    {
-                        sWriter.WriteLine($"{score.Name}:{score.Guess}");
-                    }
+                    Directory.CreateDirectory(directoryPath);
                 }
-                return true;
+
+
+                using (fStream = new FileStream(highScoreFilePath, FileMode.Append, FileAccess.Write))
+                {
+                    using (sWriter = new StreamWriter(fStream))
+                    {
+                        foreach (Score score in highScoreList)
+                        {
+                            sWriter.WriteLine($"{score.Name}:{score.Guess}");
+                        }
+                    }
+                    return true;
+                }
+
             }
             catch (Exception ex)
             {
@@ -40,16 +57,19 @@ namespace GuessNumber
             try
             {
                 List<Score> highScoreList = new List<Score>();
-                if (File.Exists(HIGH_SCORE_FILE))
+                if (File.Exists(highScoreFilePath))
                 {
-                    using (sReader = new StreamReader(HIGH_SCORE_FILE))
+                    using (fStream = new FileStream(highScoreFilePath, FileMode.Open, FileAccess.Read))
                     {
-                        string line;
-                        while ((line = sReader.ReadLine()) != null)
+                        using (sReader = new StreamReader(fStream))
                         {
-                            string[] parts = line.Split(':');
-                            Score score = new Score(parts[0], int.Parse(parts[1]));
-                            highScoreList.Add(score);
+                            string line;
+                            while ((line = sReader.ReadLine()) != null)
+                            {
+                                string[] parts = line.Split(':');
+                                Score score = new Score(parts[0], int.Parse(parts[1]));
+                                highScoreList.Add(score);
+                            }
                         }
                     }
                 }

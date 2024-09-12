@@ -10,10 +10,13 @@ namespace GuessNumber
     {
         private bool runGame = false;
         private Score gameScore;
-        private HandleHighScore saveScoreList = new HandleHighScore();
+        private HandleHighScore saveScoreList;
         private Random random = new Random();
 
-        public GuessNumberGame() { }
+        public GuessNumberGame() 
+        {
+            saveScoreList = new HandleHighScore();
+        }
 
         public void PlayGame(string name)
         {

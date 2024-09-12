@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuessNumber
 {
-    public class Score
+    public class Score : IComparable<Score>
     {
         public string Name { get; set; }
         public int Guess { get; set; }
@@ -17,9 +17,9 @@ namespace GuessNumber
             Guess = guess;
         }
 
-        public int CompareTo(Score score)
+        public int CompareTo(Score other)
         {
-            return score.Guess.CompareTo(this.Guess);
+            return this.Guess.CompareTo(other.Guess);
         }
     }
 }
