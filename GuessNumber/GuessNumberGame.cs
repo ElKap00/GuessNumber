@@ -8,6 +8,8 @@ namespace GuessNumber
 {
     public class GuessNumberGame
     {
+        private static int MAX_GUESS = 10;
+        private static int MIN_GUESS = 1;
         private bool runGame = false;
         private Score gameScore;
         private HandleHighScore saveScoreList;
@@ -21,7 +23,7 @@ namespace GuessNumber
 
         /* 
          * This method will start the game. 
-         * It will generate a random number between 1-10 and ask the user to guess it.
+         * It will generate a random number between MIN_GUESS and MAX_GUESS and ask the user to guess it.
          * The user will keep guessing until they get the correct number.
          * The game will keep track of the number of guesses the user makes.
          * The game will also save the user's score to a list of scores.
@@ -33,13 +35,13 @@ namespace GuessNumber
             WillPlay(playerResponse);
 
             // Initialize the game variables
-            int numberToGuess = random.Next(1, 11);
+            int numberToGuess = random.Next(MIN_GUESS, MAX_GUESS + 1);
             int userGuess = 0;
             List<Score> scores = new List<Score>();
 
             if (runGame)
             {
-                Console.WriteLine("Awesome! Guess a number between 1-10.");
+                Console.WriteLine($"Awesome! Guess a number between {MIN_GUESS}-{MAX_GUESS}.");
             }
 
             // Core game loop
@@ -59,13 +61,13 @@ namespace GuessNumber
                     gameScore = new Score("Player", 0);
                     Console.WriteLine("Do you want to play again? (y/n)");
                     WillPlay(Console.ReadLine());
-                    numberToGuess = random.Next(1, 11);
-                    Console.WriteLine("Guess a number between 1-10.");
+                    numberToGuess = random.Next(MIN_GUESS, MAX_GUESS + 1);
+                    Console.WriteLine($"Guess a number between {MIN_GUESS}-{MAX_GUESS}.");
                 }
-                else if (userGuess < 1 && userGuess > 10)
+                else if (userGuess < MIN_GUESS && userGuess > MAX_GUESS)
                 {
                     gameScore.Guess++;
-                    Console.WriteLine("Please guess between 1 and 10.");
+                    Console.WriteLine($"Please guess a number between {MIN_GUESS}-{MAX_GUESS}.");
                 }
                 else if (userGuess < numberToGuess)
                 {
