@@ -42,7 +42,9 @@ namespace GuessNumber
 
             Console.Write(mainMenu);
 
-            return Console.ReadLine();
+            //return the player's response or an empty string if the input is null
+            string? input = Console.ReadLine();
+            return input ?? string.Empty;
         }
     }
 }

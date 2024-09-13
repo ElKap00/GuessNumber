@@ -47,7 +47,19 @@ namespace GuessNumber
             // Core game loop
             while (runGame)
             {
-                userGuess = int.Parse(Console.ReadLine());
+                string? input = Console.ReadLine();
+                if (input == null)
+                {
+                    Console.WriteLine("Input cannot be null. Please enter a valid number.");
+                    continue;
+                }
+
+                if (!int.TryParse(input, out userGuess))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    continue;
+                }
+
                 //correct guess
                 if (userGuess == numberToGuess)
                 {
@@ -56,17 +68,22 @@ namespace GuessNumber
                     Console.WriteLine($"You guessed {gameScore.Guess} time(s).");
                     // Add the score to the list
                     Console.WriteLine("Enter your name: ");
-                    gameScore.Name = Console.ReadLine();
+                    string? playerName = Console.ReadLine();
+                    gameScore.Name = playerName ?? "Unknown";
                     scores.Add(gameScore);
                     // Reset the game
-                    gameScore = new Score("Player", 0);
                     Console.WriteLine("Do you want to play again? (y/n)");
                     WillPlay(Console.ReadLine());
-                    numberToGuess = random.Next(MIN_GUESS, MAX_GUESS + 1);
-                    Console.WriteLine($"Guess a number between {MIN_GUESS}-{MAX_GUESS}.");
+                    if (runGame)
+                    {
+                        gameScore = new Score("Player", 0);
+                        numberToGuess = random.Next(MIN_GUESS, MAX_GUESS + 1);
+                        Console.WriteLine($"Guess a number between {MIN_GUESS}-{MAX_GUESS}.");
+                    }
+
                 }
                 //guess outside of range
-                else if (userGuess < MIN_GUESS && userGuess > MAX_GUESS)
+                else if (userGuess < MIN_GUESS || userGuess > MAX_GUESS)
                 {
                     gameScore.Guess++;
                     Console.WriteLine($"Please guess a number between {MIN_GUESS}-{MAX_GUESS}.");
