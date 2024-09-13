@@ -48,6 +48,7 @@ namespace GuessNumber
             while (runGame)
             {
                 userGuess = int.Parse(Console.ReadLine());
+                //correct guess
                 if (userGuess == numberToGuess)
                 {
                     gameScore.Guess++;
@@ -64,22 +65,26 @@ namespace GuessNumber
                     numberToGuess = random.Next(MIN_GUESS, MAX_GUESS + 1);
                     Console.WriteLine($"Guess a number between {MIN_GUESS}-{MAX_GUESS}.");
                 }
+                //guess outside of range
                 else if (userGuess < MIN_GUESS && userGuess > MAX_GUESS)
                 {
                     gameScore.Guess++;
                     Console.WriteLine($"Please guess a number between {MIN_GUESS}-{MAX_GUESS}.");
                 }
+                //guess too low
                 else if (userGuess < numberToGuess)
                 {
                     gameScore.Guess++;
                     Console.WriteLine("Your guess is too low! Try again!");
                 }
+                //guess too high
                 else if (userGuess > numberToGuess)
                 {
                     gameScore.Guess++;
                     Console.WriteLine("Your guess is too high! Try again!");
                 }
             }
+            // Save the high scores
             if (saveScoreList.SaveHighScore(scores))
                 Console.WriteLine("Score saved");
         }
