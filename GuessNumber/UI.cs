@@ -31,7 +31,7 @@ namespace GuessNumber
                 mainMenu += "| Name          | Guess |\n";
                 mainMenu += "|---------------|-------|\n";
                 foreach (Score score in scores)
-                    mainMenu += $"| {score.Name,-15} | {score.Guess,5} |\n";
+                    mainMenu += $"| {score.Name,-13} | {score.Guess,5} |\n";
             }
             else
             {
